@@ -1,0 +1,151 @@
+//test  case 1: test for arithmatics, load, store and if statements 
+//this is the description of the code
+/*
+DON'T FORGET TO HARDWIRE r0 TO THE VALUE 0 
+r1 <- 2
+r2 <- any value to check the load instruction 
+r3 <- 3
+r3 <- 6
+r3 <- 6 * 2 =12
+r3 <- 2
+r3 value stored in word #2 
+if r3 = 2  code test successful 
+else unsuccessful 
+*/
+
+//test case 1: test for arithmatics, load, store and if statements 
+ADDI R1,R0,2 
+LW R2,R1,0 
+ADDI R3,R0,3
+ADD R3,R3,R3
+MUL R3,R3,R1
+ADDI R3,R3,-10
+BEQ R3,R1,2
+ADD R3,R3,R3
+L1: 
+SW R3,R0,4
+//**********************************************************************************************************
+//test case 2: basic loop test 
+ADDI R1,R0,1 
+ADDI R5,R0,5 
+L1: 
+BEQ R5,R1,L2
+ADDI R5,R5,-1
+JMP L1
+L2:
+SW R2,R0,0
+//***********************************************************************************************************
+//test case 3: TESTING JALR AND RET ... INF LOOP 
+ADDI R1,R0,7
+ADDI R2,R0,0
+ADDI R2,R1,1
+NAND R2,R2,R2
+JALR R1
+MUL R1,R1,R0
+ADDI R1,R1,10
+RET 
+//*************************************************************************************************************
+//test case 4: FINAL OUTPUT "10 STORED IN ADDRESS 0 IN THE MEMORY"
+ADDI R1,R0,1
+ADDI R2,R0,2
+ADDI R3,R0,3
+ADDI R4,R0,4
+ADD R5,R4,R1
+ADDI R6,R5,0                  
+MUL R5,R5,R2 
+NAND R6,R5,R6 
+SW R5,R6,0
+//**************************************************************************************************************
+//test case 5: FINAL OUTPUT "R4= 0, R3=1, R2=2 , R1=4"
+SW R0,R0,0
+ADDI R1,R0,1
+SW R1,R0,1
+ADDI R2,R0,2 
+SW R2,R0,2
+ADDI R3,R0,3
+SW R3,R0,3
+ADDI R4,R0,4 
+SW R4,R0,4
+LW R4,R0,0
+LW R3,R0,1
+LW R2,R0,2
+LW R1,R0,3
+//****************************************************************************************************************
+//test case 6: FINAL OUTPUT ""
+ADDI R2,R0,0
+LW R6,R2,0
+ADDI R3,R0,4
+LW R2,R3,0
+ADDI R4,R0,4
+MUL R1,R2,R4
+SUB R7,R2,R6
+ADD R6,R7,R2
+//*****************************************************************************************************************
+//test case 7: FINAL OUTPUT "SUCCESS: R7= 7, VALUE STORED AT DATA MEMORY ADDRESS 0 IS 7"
+ADDI R7,R0,7
+ADDI R2,R0,2
+MUL R7,R7,R2
+ADDI R7,R7,-8
+JALR R7
+ADDI R7,R7,-5
+ADDI R7,R7,-1
+SW R7,R0,0 
+//*****************************************************************************************************************
+//test case 8: FINAL OUTPUT "CHECK VALUE STORED AT DATA MEM 0 = 0? TEST FAILED, =4? TEST SUCCEEDED"
+SW R0,R0,0
+ADDI R2,R0,2
+ADDI R3,R0,3
+ADDI R4,R0,4
+MUL R2,R2,R2
+BEQ R4,R2,L1
+JMP L2
+L1:
+SUB R2,R2,R2 
+SW R2,R0,0
+JMP L3 
+L2: 
+SW R2,R0,0
+L3:
+//********************************************************************************************************************
+//test case 9: FINAL OUTPUT "CHECK VALUE STORED AT DATA MEM 0 = 5? TEST SUCCEEDED, =4? TEST FAILED "
+SW R0,R0,0
+LW R1,R0,0
+ADDI R5,R0,5
+L1:
+BEQ R1,R5,L2
+ADDI R1,R1,1
+JMP L1
+L2:
+SW R1,R0,0
+//**********************************************************************************************************************
+//test case 10: FINAL OUTPUT "CHECK VALUE STORED AT DATA MEM 0 = 1? TEST SUCCEEDED, ELSE TEST FAILED "
+ADDI R2,R0,2
+ADDI R4,R0,4
+ADDI R6,R0,8
+NAND R2,R2,R4 
+NAND R4,R6,R4 
+NAND R1,R2,R4
+MUL R1,R1,R6 
+ADDI R1,R1,1
+SW R1,R0,0
+//**********************************************************************************************************************
+//test case 11: FINAL OUTPUT "CHECK VALUE STORED AT DATA MEM 0 = 1? TEST SUCCEEDED, ELSE TEST FAILED "
+ADDI R2,R0,2
+MUL R4,R2,R2
+MUL R5,R4,R2
+NAND R2,R4,R2
+NAND R4,R5,R4 
+NAND R6,R2,R4
+ADDI R1,R1,1
+SW R6,R0,0
+//**********************************************************************************************************************
+//test case 12: FINAL OUTPUT "CHECK VALUE STORED AT DATA MEM 0 = 1? TEST SUCCEEDED, ELSE TEST FAILED "
+ADDI R2,R0,1
+ADDI R3,R0,4
+ADDI R4,R0,5
+L1:
+BEQ R2,R3,L2
+SUB R3,R3,R2
+JMP L1
+L2:
+  
